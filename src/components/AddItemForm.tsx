@@ -29,7 +29,7 @@ export function AddItemForm({ onAdded }: { onAdded: () => void }) {
             await addItem(data);
             onAdded();
             reset();
-        } catch (err) {
+        } catch {
             setError('Failed to add item. Please try again.');
         } finally {
             setLoading(false);
@@ -39,48 +39,50 @@ export function AddItemForm({ onAdded }: { onAdded: () => void }) {
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
-            className="space-y-4 p-6 border rounded-md shadow bg-white max-w-md mx-auto"
+            className="max-w-xl mx-auto bg-white p-6 rounded-lg shadow-md space-y-4 mt-8"
         >
+            <h2 className="text-2xl font-semibold text-center mb-4 text-blue-700">Add New Item</h2>
+
             <input
                 {...register('imageUrl', { required: true })}
                 placeholder="Image URL"
-                className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             {errors.imageUrl && (
-                <span className="text-red-600 text-sm">Image URL is required</span>
+                <p className="text-red-600 text-sm">Image URL is required</p>
             )}
 
             <input
                 {...register('name', { required: true })}
                 placeholder="Name"
-                className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             {errors.name && (
-                <span className="text-red-600 text-sm">Name is required</span>
+                <p className="text-red-600 text-sm">Name is required</p>
             )}
 
             <input
                 {...register('location', { required: true })}
                 placeholder="Location"
-                className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             {errors.location && (
-                <span className="text-red-600 text-sm">Location is required</span>
+                <p className="text-red-600 text-sm">Location is required</p>
             )}
 
             <input
                 type="date"
                 {...register('date', { required: true })}
-                className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             {errors.date && (
-                <span className="text-red-600 text-sm">Date is required</span>
+                <p className="text-red-600 text-sm">Date is required</p>
             )}
 
             <select
                 {...register('type', { required: true })}
-                className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 defaultValue=""
+                className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
                 <option value="" disabled>
                     Select type
@@ -89,13 +91,13 @@ export function AddItemForm({ onAdded }: { onAdded: () => void }) {
                 <option value="Found">Found</option>
             </select>
             {errors.type && (
-                <span className="text-red-600 text-sm">Type is required</span>
+                <p className="text-red-600 text-sm">Type is required</p>
             )}
 
             <select
                 {...register('status', { required: true })}
-                className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 defaultValue=""
+                className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
                 <option value="" disabled>
                     Select status
@@ -104,18 +106,19 @@ export function AddItemForm({ onAdded }: { onAdded: () => void }) {
                 <option value="Done">Done</option>
             </select>
             {errors.status && (
-                <span className="text-red-600 text-sm">Status is required</span>
+                <p className="text-red-600 text-sm">Status is required</p>
             )}
 
             <button
                 type="submit"
                 disabled={loading}
-                className={`w-full py-2 rounded-md text-white ${loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'
-                    } transition`}
+                className={`w-full py-2 rounded-md text-white transition ${loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'
+                    }`}
             >
                 {loading ? 'Adding...' : 'Add Item'}
             </button>
-            {error && <p className="text-red-600 mt-2 text-center">{error}</p>}
+
+            {error && <p className="text-center text-red-600">{error}</p>}
         </form>
     );
 }

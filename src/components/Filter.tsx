@@ -22,7 +22,7 @@ export default function Filters({
     };
 
     return (
-        <div className="flex flex-wrap gap-3 mb-6 items-center justify-center">
+        <div className="flex flex-wrap justify-center gap-4 items-center mb-6 px-2 max-w-4xl mx-auto">
             <select
                 value={typeFilter}
                 onChange={(e) => setTypeFilter(e.target.value as 'All' | 'Lost' | 'Found')}
@@ -48,12 +48,12 @@ export default function Filters({
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search by name"
-                className="flex-1 min-w-[150px] border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="min-w-[150px] flex-1 border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
 
             <button
                 onClick={handleReset}
-                className="bg-gray-400 hover:bg-gray-500 text-white px-4 py-2 rounded-md transition"
+                className="bg-gray-400 hover:bg-gray-500 text-white rounded-md px-4 py-2 transition"
             >
                 Reset Filters
             </button>
