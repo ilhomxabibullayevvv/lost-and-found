@@ -6,12 +6,14 @@ function App() {
   const [refreshKey, setRefreshKey] = useState(0);
 
   const handleAdded = useCallback(() => {
-    setRefreshKey(prev => prev + 1);
+    setRefreshKey((prev) => prev + 1);
   }, []);
 
   return (
-    <div className="max-w-2xl mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-4">Lost & Found Board</h1>
+    <div className="max-w-3xl mx-auto p-6 bg-gray-50 min-h-screen">
+      <h1 className="text-4xl font-bold mb-6 text-center text-gray-900">
+        Lost & Found Board
+      </h1>
       <AddItemForm onAdded={handleAdded} />
       <ItemList key={refreshKey} />
     </div>

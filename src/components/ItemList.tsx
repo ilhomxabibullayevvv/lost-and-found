@@ -50,19 +50,51 @@ export default function ItemList() {
   return (
     <div>
       <Filters {...{ typeFilter, setTypeFilter, statusFilter, setStatusFilter, search, setSearch }} />
-      {loading && <p className="text-center py-4">Loading items...</p>}
-      {error && <p className="text-center text-red-600 py-4">{error}</p>}
-      {!loading && filtered.length === 0 && <p className="text-center py-4">No items found.</p>}
-      <ul className="space-y-2">
+
+      {loading && <p className="text-center py-6 text-gray-600">Loading items...</p>}
+      {error && <p className="text-center py-6 text-red-600 font-semibold">{error}</p>}
+      {!loading && filtered.length === 0 && (
+        <p className="text-center py-6 text-gray-500 font-medium">No items found.</p>
+      )}
+
+      <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {filtered.map(i => (
-          <li key={i.id} className="border p-2 flex items-center">
-            <img src={i.imageUrl} alt={i.name} className="w-16 h-16 object-cover mr-4 rounded" />
-            <div className="flex-1">
-              <h3 className="font-semibold">{i.name}</h3>
-              <p>{i.location} – {i.date} – {i.type} – {i.status}</p>
+          <li
+            key={i.id}
+            className="bg-white shadow-md rounded-md overflow-hidden flex flex-col sm:flex-row items-center p-4 hover:shadow-lg transition"
+          >
+            <img
+              src={i.imageUrl}
+              alt={i.name}
+              className="w-full sm:w-32 h-32 object-cover rounded-md mb-4 sm:mb-0 sm:mr-4 flex-shrink-0"
+            />
+            <div className="flex-1 w-full">
+              <h3 className="text-lg font-semibold text-gray-900">{i.name}</h3>
+              <p className="text-gray-600 mt-1">
+                <span className="font-medium">Location:</span> {i.location}
+              </p>
+              <p className="text-gray-600">
+                <span className="font-medium">Date:</span> {i.date}
+              </p>
+              <div className="mt-2 flex flex-wrap gap-2">
+                <span className="bg-blue-100 text-blue-800 rounded px-2 py-1 text-xs font-semibold">
+                  {i.type}
+                </span>
+                <span
+                  className={`rounded px-2 py-1 text-xs font-semibold ${i.status === 'Active'
+                      ? 'bg-green-100 text-green-700'
+                      : 'bg-gray-200 text-gray-600'
+                    }`}
+                >
+                  {i.status}
+                </span>
+              </div>
             </div>
             {i.status === 'Active' && (
-              <button onClick={() => handleMarkDone(i.id)} className="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded">
+              <button
+                onClick={() => handleMarkDone(i.id)}
+                className="mt-4 sm:mt-0 sm:ml-4 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded transition"
+              >
                 Mark Done
               </button>
             )}
